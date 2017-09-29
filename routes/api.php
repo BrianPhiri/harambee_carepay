@@ -19,3 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('/patients', 'PatientController');
 Route::resource('/contributors', 'ContributorController');
+
+Route::get('/tests', function(){
+    return App\amountView::all();
+});
