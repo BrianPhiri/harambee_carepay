@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contributor extends Model
 {
-    protected $fillable = ["phoneNumber", "amount", "patient_id"];
+    protected $fillable = ["phoneNumber", "amount", "member_id"];
     public function patient(){
-        return $this->belongsTo('Patient', 'patient_id');
+        return $this->belongsTo('App\Member', 'memeber_id');
     }
 }

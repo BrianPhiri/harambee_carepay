@@ -19,4 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Route::resource('/', 'PatientController');
+// Route::resource('/contributions/{id}', 'ContributorController');
 
+Route::get('/testview', function(){
+    return view('harambee.index');
+});

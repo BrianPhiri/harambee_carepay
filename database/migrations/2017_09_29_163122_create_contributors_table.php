@@ -17,10 +17,10 @@ class CreateContributorsTable extends Migration
             $table->increments('id');
             $table->string('phoneNumber');
             $table->decimal('amount', 10,2);
-            $table->integer('patient_id')->unsigned();
+            $table->integer('member_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('patient_id')->references('id')->on('patients');
+            $table->foreign('member_id')->references('id')->on('members');
         });
     }
 

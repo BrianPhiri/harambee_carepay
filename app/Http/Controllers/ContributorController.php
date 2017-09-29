@@ -24,7 +24,7 @@ class ContributorController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**

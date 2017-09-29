@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('/patients', 'PatientController');
+Route::resource('/patients', 'MemberController');
 Route::resource('/contributors', 'ContributorController');
 
 Route::get('/tests', function(){

@@ -13,7 +13,8 @@ class CreateAmountTotalView extends Migration
      */
     public function up()
     {
-        DB::statement('CREATE VIEW amountView AS SELECT patients.id, patients.amount As initialAmount, SUM(contributors.amount) AS totalAmounts from patients JOIN contributors on patients.id = contributors.patient_id GROUP BY patients.id GROUP BY patients.amount');
+        // DB::statement('DROP VIEW IF EXISTS amountView');
+        DB::statement('CREATE VIEW amountView AS SELECT members.id, (SUM(members.amount)-SUM(contributors.amount)) AS balanace from members JOIN contributors on members.id = contributors.member_id GROUP BY members.id');
     }
 
     /**
