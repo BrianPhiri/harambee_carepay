@@ -38,10 +38,11 @@ class MemberController extends Controller
 
         $input = $request->all();
         $image = $request->file('image');
-        $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
+        $input['image'] = time().'.'.$image->getClientOriginalExtension();
+
         $destinationPath = public_path('/images');
-        $image->move($destinationPath, $input['imagename']);
-        
+        $image->move($destinationPath, $input['image']);
+
         $new_harambee = Member::create($input);
         return $new_harambee;
     }
