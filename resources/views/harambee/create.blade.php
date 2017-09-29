@@ -3,8 +3,10 @@
     <br>
     <section>
         <div class="card">
+            <div class="card-header text-white" id="bg-carepay">
+                <h6 class="card-title">Harambee Details</h6>
+            </div>
             <div class="card-body">
-                <h4 class="card-title">Details</h4>
                 <form>
                     <div class="form-group">
                         <label for="phone_number">Phone Number</label>

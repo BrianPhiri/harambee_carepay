@@ -3,8 +3,8 @@
 @section('content')
     <br>
     <div class="card">
-        <div class="card-header">
-            Harambee
+        <div class="card-header text-white" id="bg-carepay">
+            <h6 class="card-title">Harambee</h6>
             <button class="btn btn-info btn-sm float-right">New Harambee</button>
         </div>
         <div class="card-body">
