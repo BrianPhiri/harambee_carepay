@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Contributor;
+use App\Member;
 
 class ContributorController extends Controller
 {
@@ -24,7 +25,7 @@ class ContributorController extends Controller
      */
     public function create()
     {
-        
+        return "create method";
     }
 
     /**
@@ -37,8 +38,9 @@ class ContributorController extends Controller
     {
         $input = $request->all();
         $new_contribution = Contributor::create($input);
-        
-        return $new_contribution;
+
+        $contribute = Member::findOrFail($input['member_id']);
+        return view('contributions/index', compact('contribute'));
     }
 
     /**
@@ -49,7 +51,9 @@ class ContributorController extends Controller
      */
     public function show($id)
     {
-        return Contributor::findOrFail($id);
+        // $contribution = Contributor::with('memeber')->findOrFail($id);
+        $contribute = Member::findOrFail($id);
+        return view('contributions/index', compact('contribute'));
     }
 
     /**
@@ -60,7 +64,7 @@ class ContributorController extends Controller
      */
     public function edit($id)
     {
-        //
+        return "edit method";
     }
 
     /**
@@ -72,7 +76,7 @@ class ContributorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return "update method";
     }
 
     /**

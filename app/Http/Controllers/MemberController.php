@@ -24,7 +24,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        return view('harambee/create');
     }
 
     /**
@@ -37,14 +37,15 @@ class MemberController extends Controller
     {
 
         $input = $request->all();
+        
         $image = $request->file('image');
         $input['image'] = time().'.'.$image->getClientOriginalExtension();
 
         $destinationPath = public_path('/images');
         $image->move($destinationPath, $input['image']);
-
         $new_harambee = Member::create($input);
-        return $new_harambee;
+        
+        return "redirect to harambee/{id}";
     }
 
     /**
@@ -55,7 +56,11 @@ class MemberController extends Controller
      */
     public function show($id)
     {
-        return Member::where('id',$id)->with('contribution')->get();
+        // return Member::where('id',$id)->with('contribution')->get();
+        $memberHarambees = Member::with('balance')->where('user_id', $id)->get();
+        // return $memberHarambees;
+        // $balances = App\amountView::where('id', $id)->get();
+        return view('harambee.index', compact('memberHarambees'));
     }
 
     /**
