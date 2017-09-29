@@ -16,7 +16,7 @@ class CreateContributorsTable extends Migration
         Schema::create('contributors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('phoneNumber');
-            $table->decimal('amount', 5,2);
+            $table->decimal('amount', 10,2);
             $table->integer('patient_id')->unsigned();
             $table->timestamps();
 
