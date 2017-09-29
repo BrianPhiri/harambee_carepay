@@ -18,7 +18,10 @@ class CreatePatientsTable extends Migration
             $table->text('description');
             $table->decimal('amount', 5,2);
             $table->string('image');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
