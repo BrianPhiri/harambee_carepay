@@ -35,7 +35,13 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
+
         $input = $request->all();
+        $image = $request->file('image');
+        $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
+        $destinationPath = public_path('/images');
+        $image->move($destinationPath, $input['imagename']);
+        
         $new_harambee = Member::create($input);
         return $new_harambee;
     }
