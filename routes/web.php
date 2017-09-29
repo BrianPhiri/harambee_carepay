@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('contributions.index');
+    return view('harambee.create');
 });
 
 Auth::routes();
