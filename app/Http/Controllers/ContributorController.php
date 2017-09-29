@@ -37,6 +37,7 @@ class ContributorController extends Controller
     {
         $input = $request->all();
         $new_contribution = Contributor::create($input);
+        
         return $new_contribution;
     }
 

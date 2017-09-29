@@ -48,7 +48,7 @@ class MemberController extends Controller
      */
     public function show($id)
     {
-        return Member::findOrFail($id)->with('contribution')->get();
+        return Member::where('id',$id)->with('contribution')->get();
     }
 
     /**
