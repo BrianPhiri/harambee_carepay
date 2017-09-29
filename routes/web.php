@@ -11,12 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('harambee.create');
+// });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::resource('/harambee', 'MemberController');
+// Route::resource('/contributors', 'ContributorController');
 
+Route::resource('/testview', 'ContributorController');
