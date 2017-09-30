@@ -68,7 +68,7 @@ class MemberController extends Controller
 
         $member->save();
 
-        $request->session()->flash('success_message', 'Thank you for contributing for'.$request->description);
+        $request->session()->flash('success_message', 'The request has been successfully created.');
 
         return redirect('harambee');
     }
