@@ -38,19 +38,22 @@ class ContributorController extends Controller
     public function store(Request $request)
     {
         Contributor::create($request->all());
+
         $balance = amountView::where('id', $request->member_id)->get();
-        if($balance > 0){
-            $member_request = Member::findOrFail($request->member_id);
-        }
-        
-        $balance = amountView::where('id', $member_id)->get();
-        if($balance[0]->balanace < 1){
-            $ontributors = Contributor::get();
-            foreach($ontributors as $ontributor){
-                sms($contributor->phoneNumber);
+        $member_request = \App\Member::where('id', $request->member_id)->get();
+
+//        return  $member_request;
+
+        if($balance[0]->balance < 1){
+            $contributors = Contributor::get();
+            foreach($contributors as $contributor){
+                $this->sms($contributor->phoneNumber);
             }
         }
-        return view('contributions/index', compact('member_request'));
+
+        $request->session()->flash('success_message', 'Thank you for contributing for '.$member_request[0]->description);
+
+        return redirect()->back();
     }
 
     /**

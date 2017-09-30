@@ -21,7 +21,8 @@ class MemberController extends Controller
     public function index()
     {
 //        return Member::all();
-        $memberHarambees = Member::with('balance')->where('user_id', Auth::id())->get();
+//        return Member::with('balance')->get();
+        $memberHarambees = Member::with('balance')->where('user_id', Auth::id())->get()->where('balance.balance', '>' ,0)->sortByDesc('created_at');
         return view('harambee.index', compact('memberHarambees'));
     }
 
@@ -61,7 +62,9 @@ class MemberController extends Controller
 
         $member->save();
 
-        redirect('harambee');
+        $request->session()->flash('success_message', 'Thank you for contributing for'.$request->description);
+
+        return redirect('harambee');
     }
 
     /**

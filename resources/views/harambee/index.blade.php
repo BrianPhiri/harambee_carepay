@@ -13,19 +13,22 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <p class="card-text">{{$harambee->description}}</p>
+                    <p class="card-text"><h6>Description</h6><br>{{$harambee->description}}</p>
                 </li>
                 @if($harambee->balance)
                     <li class="list-group-item">
-                        <h5>Balance : {{$harambee->balance->balance}}</h5>
+                        <h6>Targeted amount : <span style="font-size: 14px;" class="badge badge-dark">{{number_format($harambee->amount)}}</span></h6>
                     </li>
                     <li class="list-group-item">
-                        <h6>Raised percentage: {{(1 - ($harambee->balance->balance / $harambee->amount))*100}}%</h6>
+                        <h6>Balance : <span style="font-size: 14px;" class="badge badge-dark">{{number_format($harambee->balance->balance)}}</span></h6>
+                    </li>
+                    <li class="list-group-item">
+                        <h6>Raised percentage: <span style="font-size: 14px;" class="badge badge-dark">{{(1 - ($harambee->balance->balance / $harambee->amount))*100}}%</span></h6>
                     </li>
                     <li class="list-group-item">
                         <div class="progress">
                             <div id="dynamic" class="progress-bar" role="progressbar"
-                                 style="width: {{1 - ($harambee->balance->balance / $harambee->amount)}};"
+                                 style="width: {{(1 - ($harambee->balance->balance / $harambee->amount))*100}}%;"
                                  aria-valuenow="25"
                                  aria-valuemin="0"
                                  aria-valuemax="100">{{(1 - ($harambee->balance->balance / $harambee->amount))*100}}%
@@ -34,22 +37,21 @@
                     </li>
                 @else
                     <li class="list-group-item">
-                        <h5>Balance : {{ $harambee->amount}}</h5>
+                        <h6>Balance : <span class="badge badge-dark">{{number_format($harambee->amount)}}</span></h6>
                     </li>
                     <li class="list-group-item">
-                        <h6>Raised percentage: 0%</h6>
+                        <h6>Raised percentage: <span style="font-size: 14px;" class="badge badge-dark">0%</span></h6>
                     </li>
                 @endif
                 <li class="list-group-item mx-auto">
-                    @include('share', ['url' => 'https://5b139d5b.ngrok.io/contributors/'.$harambee->id])
+                    @include('share', [
+                    'url' => url('/contributors/'.$harambee->id),
+                    'description' => 'This is really cool link',
+                    'image' => 'http://placehold.it/300x300?text=Cool+link'
+                    ])
+                    {{--<a href="{{url('/contributors/'.$harambee->id)}}" class="btn btn-sm btn-default" role="button">Contribute</a>--}}
                 </li>
-                {{--<li class="list-group-item">Dapibus ac facilisis in</li>--}}
-                {{--<li class="list-group-item">Vestibulum at eros</li>--}}
             </ul>
-            {{--<div class="card-body mx-auto">--}}
-            {{--<p class="card-text">{{$harambee->description}}</p>--}}
-            {{--@include('share', ['url' => 'https://5b139d5b.ngrok.io/contributors/'.$harambee->id])--}}
-            {{--</div>--}}
         </div>
         <br>
     @endforeach
