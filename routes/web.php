@@ -11,15 +11,17 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('harambee.create');
-// });
+ Route::get('/', function () {
+     return view('harambee.create');
+ });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', function () {
+    return redirect('/harambee');
+});
 
 Route::resource('/harambee', 'MemberController');
- Route::resource('/contributors', 'ContributorController');
+Route::resource('/contributors', 'ContributorController');
 
-Route::resource('/testview', 'ContributorController');
+//Route::resource('/testview', 'ContributorController');

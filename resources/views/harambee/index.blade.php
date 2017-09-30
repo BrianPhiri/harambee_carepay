@@ -37,7 +37,7 @@
                     </li>
                 @else
                     <li class="list-group-item">
-                        <h6>Balance : <span class="badge badge-dark">{{number_format($harambee->amount)}}</span></h6>
+                        <h6>Balance : <span style="font-size: 14px;" class="badge badge-dark">{{number_format($harambee->amount)}}</span></h6>
                     </li>
                     <li class="list-group-item">
                         <h6>Raised percentage: <span style="font-size: 14px;" class="badge badge-dark">0%</span></h6>
