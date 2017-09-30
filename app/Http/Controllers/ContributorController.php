@@ -38,7 +38,52 @@ class ContributorController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        return $input;
+
+        // return $input['phoneNumber'];
+
+        $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+        
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        // $credentials = base64_encode('8n8adgPEAzN17GwtDI1rusZPoubxjqcl:OKO68x1hyQVyDwMr');
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer sLBRhSk7R6V9dmqFRHE2ZAMnRyh0')); //setting custom header
+
+        
+        $curl_post_data = array(
+          //Fill in the request parameters with valid values
+          'BusinessShortCode' => '174379',
+          'Timestamp' => '20170930041152',
+          'Password' => base64_encode('174379bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c91920170930041152'),
+          'TransactionType' => 'CustomerPayBillOnline',
+          'Amount' => $input['amount'],
+          'PartyA' => '254708374149',
+          'PartyB' => '174379',
+          'PhoneNumber' =>$input['phoneNumber'],
+          'CallBackURL' => request()->fullurl().'/api/callbacks',
+          'AccountReference' => 'xE6v5EcX',
+          'TransactionDesc' => 'Test Payment'
+        );
+        
+        $data_string = json_encode($curl_post_data);
+        
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+        
+        Contributor::create($request->all());        
+
+        $balance = amountView::where('id', $request->member_id)->get();
+        $member_request = \App\Member::where('id', $request->member_id)->get();
+        
+        if($balance[0]->balance < 1){
+            $contributors = Contributor::get();
+            foreach($contributors as $contributor){
+                $this->sms($contributor->phoneNumber);
+            }
+        }
+        $request->session()->flash('success_message', 'Thank you for contributing for '.$member_request[0]->description);
+        return redirect()->back();
+        
 
     }
 
@@ -105,4 +150,5 @@ class ContributorController extends Controller
         $curl_response = curl_exec($curl);
         echo $curl_response;
     }
+
 }
