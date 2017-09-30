@@ -46,7 +46,9 @@ class MemberController extends Controller
         $path = null;
         if($request->hasFile('image'))
         {
-            $path = $request->image->storeAs('images', time().'.jpg');
+            $application_file = $request->file('image');
+            $application_ext = $application_file->getClientOriginalExtension();
+            $path = $application_file->storeAs('public', time().'.'.$application_ext);
         }
 
 //        return $path;

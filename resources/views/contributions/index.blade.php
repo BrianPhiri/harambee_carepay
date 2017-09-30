@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <header class="masthead">
+    <header class="masthead" style="background-image: url('{{Storage::disk('local')->url($member_request->image)}}');">
         <div class="overlay">
             <div class="container">
                 <h5 class="text-white">Contributions</h5>
@@ -17,6 +17,10 @@
                     <div class="form-group">
                         <label for="description">Description</label>
                         <textarea class="form-control" cols="15" rows="5" readonly>{{$member_request->description}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Balance</label>
+                        <input type="text" class="form-control" readonly value="{{$member_request->balance}}">
                     </div>
                     <div class="form-group">
                         <label for="phoneNumber">Phone Number</label>
