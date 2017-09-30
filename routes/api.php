@@ -25,3 +25,5 @@ Route::get('/tests', 'TestController@payment');
 Route::get('/sms', 'TestController@sms');
 
 Route::get('/balance', 'TestController@balance');
+
+Route::get('/payments', 'PaymentController@payment');
