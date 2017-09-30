@@ -22,8 +22,14 @@ class MemberController extends Controller
     {
 //        return Member::all();
 //        return Member::with('balance')->get();
-        $memberHarambees = Member::with('balance')->where('user_id', Auth::id())->get()->where('balance.balance', '>' ,0)->sortByDesc('created_at');
-        return view('harambee.index', compact('memberHarambees'));
+        $memberHarambees = Member::with('balance')->where('user_id', Auth::id())->get()->sortByDesc('created_at');
+//        return $memberHarambees;
+        if($memberHarambees->count() == 0) {
+            return redirect('/harambee/create');
+        }
+        else {
+            return view('harambee.index', compact('memberHarambees'));
+        };
     }
 
     /**

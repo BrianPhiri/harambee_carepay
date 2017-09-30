@@ -11,16 +11,16 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="phone_number">Phone Number</label>
-                        <input type="text" class="form-control" name="phoneNumber" aria-describedby="" placeholder="Enter phone number">
+                        <input type="text" class="form-control" name="phoneNumber" aria-describedby="" placeholder="Enter phone number" required>
                         {{--<small id="" class="form-text text-muted">We'll never share your email with anyone else.</small>--}}
                     </div>
                     <div class="form-group">
                         <label for="description">Harambee description</label>
-                        <textarea type="text" class="form-control" name="description" placeholder="" name="description"></textarea>
+                        <textarea type="text" class="form-control" name="description" placeholder="" name="description" required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="amount">Amount</label>
-                        <input type="text" class="form-control" id="amount" name="amount">
+                        <input type="text" class="form-control" id="amount" name="amount" required>
                     </div>
                     <div class="form-group">
                         <label for="photo">Harambee photo</label>
@@ -32,4 +32,5 @@
             </div>
         </div>
     </section>
+    <br>
 @endsection
