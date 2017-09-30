@@ -4,10 +4,11 @@
     <section>
         <div class="card">
             <div class="card-header text-white" id="bg-carepay">
-                <h6 class="card-title">Harambee Details</h6>
+                Harambee Details
             </div>
             <div class="card-body">
-                <form method="post" action="/api/members" enctype="multipart/form-data">
+                <form method="post" action="/harambee" enctype="multipart/form-data">
+                    {{ csrf_field() }}
                     <div class="form-group">
                         <label for="phone_number">Phone Number</label>
                         <input type="text" class="form-control" name="phoneNumber" aria-describedby="" placeholder="Enter phone number">
@@ -23,7 +24,7 @@
                     </div>
                     <div class="form-group">
                         <label for="photo">Harambee photo</label>
-                        <input type="file" class="form-control" id="image" name="image">
+                        <input type="file" class="form-control" id="image" name="image" accept="image/x-png,image/gif,image/jpeg" />
                     </div>
                     <div> <input type="hidden" name="user_id" value="1"> </div>
                     <button type="submit" class="btn btn-primary">Submit</button>

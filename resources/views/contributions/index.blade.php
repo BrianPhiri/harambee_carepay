@@ -12,10 +12,11 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <form class="mx-auto" method="post" action="/api/contributors">
+                <form class="mx-auto" method="post" action="/contributors">
+                    {{ csrf_field() }}
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" cols="15" rows="5" readonly>{{$contribute->description}}</textarea>
+                        <textarea class="form-control" cols="15" rows="5" readonly>{{$member_request->description}}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="phoneNumber">Phone Number</label>
@@ -27,7 +28,7 @@
                         <input type="text" class="form-control" id="amount" name="amount" placeholder="Contribution amount">
                     </div>
                     <div>
-                        <input type="hidden" name="member_id" value="{{$contribute->id}}">
+                        <input type="hidden" name="member_id" value="{{$member_request->id}}">
                     </div>
                     <button type="submit" class="btn btn-primary">Contribute</button>
                 </form>

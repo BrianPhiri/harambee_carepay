@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Member;
+use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
@@ -12,9 +13,16 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+         $this->middleware('auth');
+    }
+
     public function index()
     {
-        return Member::all();
+//        return Member::all();
+        $memberHarambees = Member::with('balance')->where('user_id', Auth::id())->get();
+        return view('harambee.index', compact('memberHarambees'));
     }
 
     /**
@@ -35,17 +43,23 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
+        $path = null;
+        if($request->hasFile('image'))
+        {
+            $path = $request->image->storeAs('images', time().'.jpg');
+        }
 
-        $input = $request->all();
-        
-        $image = $request->file('image');
-        $input['image'] = time().'.'.$image->getClientOriginalExtension();
+//        return $path;
+        $member = new \App\Member;
+        $member->phoneNumber = $request->phoneNumber;
+        $member->description = $request->description;
+        $member->amount = $request->amount;
+        $member->image = $path;
+        $member->user_id = Auth::id();
 
-        $destinationPath = public_path('/images');
-        $image->move($destinationPath, $input['image']);
-        $new_harambee = Member::create($input);
-        
-        return "redirect to harambee/{id}";
+        $member->save();
+
+        redirect('harambee');
     }
 
     /**
