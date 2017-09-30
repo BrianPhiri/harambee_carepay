@@ -16,6 +16,14 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-// Route::get('/tests', function(){
-//     return App\amountView::all();
-// });
+
+
+// Route::resource('/members', 'MemberController');
+Route::resource('/contributors', 'ContributorController');
+
+Route::get('/tests', 'TestController@payment');
+Route::get('/sms', 'TestController@sms');
+
+Route::get('/balance', 'TestController@balance');
+
+Route::get('/payments', 'PaymentController@payment');
