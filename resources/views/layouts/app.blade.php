@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:title" content="Carepay" />
-    <meta property="og:description" content="Contribution Link" />
-    <meta property="og:url" content="CarePay Contribution Link" />
-    <meta property="og:image" content="https://www.carepay.co.ke/sites/all/themes/habahaba_01/favicon.ico" />
+    <meta property="og:title" content="Carepay"/>
+    <meta property="og:description" content="Contribution Link"/>
+    <meta property="og:url" content="CarePay Contribution Link"/>
+    <meta property="og:image" content="https://www.carepay.co.ke/sites/all/themes/habahaba_01/favicon.ico"/>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Carepay') }}</title>
+    <title>Carepay</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -68,13 +68,14 @@
         </div>
     </div>
 </nav>
-<br>
+@yield('header')
 <div class="container">
     @if(Session::has('success_message'))
         <br>
         @include('layouts.alerts')
     @endif
 <!-- Navigation -->
+    <br>
     @yield('content')
 </div>
 

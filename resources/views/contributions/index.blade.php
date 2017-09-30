@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('content')
+@section('header')
     <header class="masthead" style="background-image: url('{{Storage::disk('local')->url($member_request->image)}}');">
         <div class="overlay">
             <div class="container">

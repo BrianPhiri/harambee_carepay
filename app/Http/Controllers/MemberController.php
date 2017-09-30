@@ -25,7 +25,7 @@ class MemberController extends Controller
         $memberHarambees = Member::with('balance')->where('user_id', Auth::id())->get()->sortByDesc('created_at');
 //        return $memberHarambees;
         if($memberHarambees->count() == 0) {
-            return redirect('/harambee/create');
+            return view('harambee.create');
         }
         else {
             return view('harambee.index', compact('memberHarambees'));
