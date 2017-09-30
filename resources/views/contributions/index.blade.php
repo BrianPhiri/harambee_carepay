@@ -12,31 +12,70 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <form class="mx-auto" method="post" action="/contributors">
+                <form id="needs-validation" class="mx-auto" method="post" action="/contributors">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" cols="15" rows="5" readonly>{{$member_request->description}}</textarea>
+                        <textarea class="form-control" cols="15" rows="5"
+                                  readonly>{{$member_request->description}}</textarea>
                     </div>
                     <div class="form-group">
-                        <label for="">Balance</label>
-                        <input type="text" class="form-control" readonly value="{{$member_request->balance}}">
+                        <label for="">Targeted Amount</label>
+                        <input id="amount" type="text" class="form-control" readonly
+                               value="{{$member_request->amount}}">
                     </div>
                     <div class="form-group">
-                        <label for="phoneNumber">Phone Number</label>
-                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
-                               placeholder="Enter phone number">
+                        <label for="">Contributed Amount</label>
+                        <input id="contributed" type="text" class="form-control" readonly value="">
                     </div>
                     <div class="form-group">
-                        <label for="amount">Amount</label>
-                        <input type="text" class="form-control" id="amount" name="amount" placeholder="Contribution amount">
+                        <label for="">Remaining Amount</label>
+                        <input id="balance" type="text" class="form-control" readonly
+                               value="{{$member_request->balance ? $member_request->balance->balance: $member_request->amount}}">
                     </div>
-                    <div>
-                        <input type="hidden" name="member_id" value="{{$member_request->id}}">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Contribute</button>
+                    @if($member_request->balance)
+                        <div class="form-group">
+                            <div class="progress">
+                                <div id="dynamic" class="progress-bar" role="progressbar"
+                                     style="width: {{(1 - ($member_request->balance->balance / $member_request->amount))*100}}%;"
+                                     aria-valuenow="25"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100">{{(1 - ($member_request->balance->balance / $member_request->amount))*100}}
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    {{--{{$member_request->balance->balance == 0}}--}}
+                    @if($member_request->balance->balance > 0)
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone Number</label>
+                            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                                   placeholder="Enter phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <input type="text" class="form-control" id="contributed_amount" name="amount"
+                                   placeholder="Contribution amount">
+                        </div>
+                        <div>
+                            <input type="hidden" name="member_id" value="{{$member_request->id}}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Contribute</button>
+                    @endif
                 </form>
             </div>
         </div>
     </div>
+    <br>
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            var amt = $('#amount').val();
+            var balance = $('#balance').val();
+            var contribute = amt - balance;
+            $('#contributed').val(contribute);
+        });
+    </script>
 @endsection

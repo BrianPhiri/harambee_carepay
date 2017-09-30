@@ -14,7 +14,7 @@ class CreateAmountTotalView extends Migration
     public function up()
     {
         // DB::statement('DROP VIEW IF EXISTS amountView');
-        DB::statement('CREATE VIEW amountView AS SELECT members.id, (SUM(members.amount)-contributors.amount) AS balance from members JOIN contributors on members.id = contributors.member_id GROUP BY members.id, contributors.amount');
+        DB::statement('CREATE VIEW amountView AS SELECT members.id, (members.amount-SUM(contributors.amount)) AS balance from members JOIN contributors on contributors.member_id = members.id GROUP BY members.id, members.amount');
     }
 
     /**
