@@ -38,8 +38,10 @@ class ContributorController extends Controller
     public function store(Request $request)
     {
         Contributor::create($request->all());
-
-        $member_request = Member::findOrFail($request->member_id);
+        $balance = amountView::where('id', $request->member_id)->get();
+        if($balance > 0){
+            $member_request = Member::findOrFail($request->member_id);
+        }
         
         $balance = amountView::where('id', $member_id)->get();
         if($balance[0]->balanace < 1){
