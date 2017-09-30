@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-// Route::resource('/members', 'MemberController');
+Route::resource('/members', 'MemberController');
 Route::resource('/contributors', 'ContributorController');
 
 Route::get('/tests', 'TestController@payment');
@@ -27,3 +27,4 @@ Route::get('/sms', 'TestController@sms');
 Route::get('/balance', 'TestController@balance');
 
 Route::get('/payments', 'PaymentController@payment');
+Route::post('/callbacks', 'PaymentController@paymentCallBack');
