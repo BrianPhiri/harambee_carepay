@@ -25,7 +25,7 @@ class ContributorController extends Controller
      */
     public function create()
     {
-        return "create method";
+        return View('contributions.create');
     }
 
     /**
@@ -36,11 +36,10 @@ class ContributorController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-        $new_contribution = Contributor::create($input);
+        Contributor::create($request->all());
 
-        $contribute = Member::findOrFail($input['member_id']);
-        return view('contributions/index', compact('contribute'));
+        $member_request = Member::findOrFail($request->member_id);
+        return view('contributions/index', compact('member_request'));
     }
 
     /**
@@ -52,8 +51,8 @@ class ContributorController extends Controller
     public function show($id)
     {
         // $contribution = Contributor::with('memeber')->findOrFail($id);
-        $contribute = Member::findOrFail($id);
-        return view('contributions/index', compact('contribute'));
+        $member_request = Member::findOrFail($id);
+        return view('contributions/index', compact('member_request'));
     }
 
     /**
