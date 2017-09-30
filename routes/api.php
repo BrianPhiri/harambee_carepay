@@ -20,6 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::resource('/members', 'MemberController');
 Route::resource('/contributors', 'ContributorController');
 
-// Route::get('/tests', function(){
-//     return App\amountView::all();
-// });
+Route::get('/tests', 'TestController@payment');
+Route::get('/sms', 'TestController@sms');
