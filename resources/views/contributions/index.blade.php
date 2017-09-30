@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <label for="">Remaining Amount</label>
                         <input id="balance" type="text" class="form-control" readonly
-                               value="{{$member_request->balance ? $member_request->balance: $member_request->amount}}">
+                               value="{{$member_request->balance ? $member_request->balance->balance: $member_request->amount}}">
                     </div>
                     @if($member_request->balance)
                         <div class="form-group">
@@ -46,20 +46,22 @@
                             </div>
                         </div>
                     @endif
-                    <div class="form-group">
-                        <label for="phoneNumber">Phone Number</label>
-                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
-                               placeholder="Enter phone number">
-                    </div>
-                    <div class="form-group">
-                        <label for="amount">Amount</label>
-                        <input type="text" class="form-control" id="contributed_amount" name="amount"
-                               placeholder="Contribution amount">
-                    </div>
-                    <div>
-                        <input type="hidden" name="member_id" value="{{$member_request->id}}">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Contribute</button>
+                    @if($member_request->balance == null || $member_request->balance->balance > 0)
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone Number</label>
+                            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                                   placeholder="Enter phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <input type="text" class="form-control" id="contributed_amount" name="amount"
+                                   placeholder="Contribution amount">
+                        </div>
+                        <div>
+                            <input type="hidden" name="member_id" value="{{$member_request->id}}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Contribute</button>
+                    @endif
                 </form>
             </div>
         </div>

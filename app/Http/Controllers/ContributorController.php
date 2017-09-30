@@ -32,7 +32,7 @@ class ContributorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -44,14 +44,16 @@ class ContributorController extends Controller
 
 //        return  $member_request;
 
-        if($balance[0]->balance < 1){
+        if ($balance[0]->balance < 1) {
             $contributors = Contributor::get();
-            foreach($contributors as $contributor){
-                $this->sms($contributor->phoneNumber);
+            foreach ($contributors as $contributor) {
+                if ($request->phoneNumber == $contributor->phoneNumber) {
+                    $this->sms($contributor->phoneNumber);
+                }
             }
         }
 
-        $request->session()->flash('success_message', 'Thank you for contributing for '.$member_request[0]->description);
+        $request->session()->flash('success_message', 'Thank you for contributing for ' . $member_request[0]->description);
 
         return redirect()->back();
     }
@@ -59,7 +61,7 @@ class ContributorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -72,7 +74,7 @@ class ContributorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -83,8 +85,8 @@ class ContributorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -95,7 +97,7 @@ class ContributorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -104,13 +106,14 @@ class ContributorController extends Controller
     }
 
 
-    public function sms($phoneNumber){
+    public function sms($phoneNumber)
+    {
         $url = 'http://messaging-test.ap-southeast-1.elasticbeanstalk.com/sms';
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJoYWNrNGhlYWx0aCIsImdyYW50cyI6eyIxIjoiQXc9PSJ9LCJleHAiOjE1MDY3ODQ0Nzl9.szR28Y9zo2ftu6uioTYystdeFSdyPQ0eB8YoJU_ru3_12GBDqH23tvfsapcMjP0R9qdbneBem1dMVVMKlND_cJUBYsybIk7V75rs4cRYyskgUH7DDv6LACnn8oQL51wH71Ya90nRlUppbiWvsRi-RXA2yvgnMZhnakaTbQdRqB0 ')); //setting custom header
-            
-        $message =  array( 'message' => 'Hello, Thank you very much for the contributions', 'phoneNumber' => $phoneNumber );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Authorization:Bearer eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJoYWNrNGhlYWx0aCIsImdyYW50cyI6eyIxIjoiQXc9PSJ9LCJleHAiOjE1MDY3ODQ0Nzl9.szR28Y9zo2ftu6uioTYystdeFSdyPQ0eB8YoJU_ru3_12GBDqH23tvfsapcMjP0R9qdbneBem1dMVVMKlND_cJUBYsybIk7V75rs4cRYyskgUH7DDv6LACnn8oQL51wH71Ya90nRlUppbiWvsRi-RXA2yvgnMZhnakaTbQdRqB0 ')); //setting custom header
+
+        $message = array('message' => 'Hello, Thank you very much for the contributions', 'phoneNumber' => $phoneNumber);
 
         $data_string = json_encode($message);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
